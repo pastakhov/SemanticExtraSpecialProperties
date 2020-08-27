@@ -9,8 +9,5 @@
 	"sesp-property-mimetype": "MIME tip",
 	"sesp-property-mediatype": "Vrsta medija",
 	"sesp-property-shorturl": "Skraćeni URL",
-	"sesp-property-approved-rev": "Odobrena izmena",
-	"sesp-property-approved-date": "Datum odobravanja",
-	"sesp-property-approved-status": "Status odobravanja",
 	"sesp-property-user-edit-count": "Broj korisničkih izmena"
 }

@@ -39,10 +39,6 @@ Property labels differ according to the language the wiki was set up. An easy wa
 
 - `_SHORTURL` adds a property called "Short URL" which records short URLs of a page if the [ShortUrl][ShortUrl] extension is installed, and if there is a shortened URL for the current page
 - `_VIEWS` adds a property called "Number of page views" which records the number of page views of a page if the [HitCounters][HitCounters] extension is installed. This is required starting with MediaWiki 1.25 and later. In earlier versions of MediaWiki this special property used to work out of the box if enabled. Note that depending on local settings this value might not be very up to date. If [`$wgDisableCounters`][$wgDisableCounters] is set to "true" this property will never be set.
-- `_APPROVED` adds a property called "Approved revision" which records the approvement state of a page if the [Approved Revs][Approved Revs] extension is installed
-- `_APPROVEDBY` adds a property called "Approved by" which records the user that approved a page if the [Approved Revs][Approved Revs] extension is installed
-- `_APPROVEDDATE` adds a property called "Approved date" which records the date a page was approved if the [Approved Revs][Approved Revs] extension is installed
-- `_APPROVEDSTATUS` adds a property called "Approval status" which records the approvement status of a page if the [Approved Revs][Approved Revs] extension is installed
 
 ## Additional configuration
 

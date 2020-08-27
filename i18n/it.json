@@ -18,10 +18,6 @@
 	"sesp-property-revisions": "Numero di versioni",
 	"sesp-property-talk-revisions": "Numero di versioni della pagina di discussione",
 	"sesp-property-shorturl": "URL breve",
-	"sesp-property-approved-rev": "Versione approvata",
-	"sesp-property-approved-by": "Approvato da",
-	"sesp-property-approved-date": "Data approvazione",
-	"sesp-property-approved-status": "Stato approvazione",
 	"sesp-property-user-registration-date": "Data di registrazione dell'utente",
 	"sesp-property-user-edit-count": "Numero modifiche utente",
 	"sesp-property-exif-data": "Dati Exif"
