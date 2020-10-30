@@ -2,11 +2,12 @@
 
 namespace SESP\PropertyAnnotators;
 
+use MediaWiki\MediaWikiServices;
 use SESP\AppFactory;
 use SESP\PropertyAnnotator;
 use SESP\DatabaseLogReader;
-use SMW\DIWikiPage;
 use SMWDataItem as DataItem;
+use SMWDIString as DIString;
 use SMW\DIProperty;
 use SMW\SemanticData;
 use Title;
@@ -62,12 +63,14 @@ class NamespacePropertyAnnotator implements PropertyAnnotator {
 	 * {@inheritDoc}
 	 */
 	public function addAnnotation( DIProperty $property, SemanticData $semanticData ) {
-
 		if ( $this->namespace === null ) {
 			$title = $semanticData->getSubject()->getTitle();
 			$nsInfo = MediaWikiServices::getInstance()->getNamespaceInfo();
 
 			$this->namespace = $nsInfo->getCanonicalName( $title->getNamespace() );
+			if ( "" === $this->namespace ) {
+				$this->namespace = "Main";
+			}
 		}
 
 		$dataItem = $this->getDataItem();
@@ -80,13 +83,7 @@ class NamespacePropertyAnnotator implements PropertyAnnotator {
 	}
 
 	private function getDataItem() {
-		if ( $this->namespace instanceof User ) {
-			$userPage = $this->namespace->getUserPage();
-
-			if ( $userPage instanceof Title ) {
-				return DIWikiPage::newFromTitle( $userPage );
-			}
-		}
+		return new DIString( $this->namespace );
 	}
 
 }

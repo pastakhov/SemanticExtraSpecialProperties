@@ -112,7 +112,7 @@ class DispatchingPropertyAnnotator implements PropertyAnnotator {
 			},
 
 			NamespacePropertyAnnotator::PROP_ID => function ( $appFactory ) {
-				return new NamespaceAnnotator( $appFactory );
+				return new NamespacePropertyAnnotator( $appFactory );
 			},
 
 			ApprovedRevPropertyAnnotator::PROP_ID => function ( $appFactory ) {
