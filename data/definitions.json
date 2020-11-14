@@ -22,6 +22,14 @@
 		"label": "Page length",
 		"desc": "sesp-property-page-len-desc"
 	},
+	"_PAGEIMAGE": {
+		"id": "___PAGEIMAGE",
+		"type": "_wpg",
+		"show": false,
+		"alias": "sesp-property-page-image",
+		"label": "Page image",
+		"desc": "sesp-property-page-image-desc"
+	},
 	"_EUSER": {
 		"id": "___EUSER",
 		"type": "_wpg",
