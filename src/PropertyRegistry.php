@@ -39,7 +39,7 @@ class PropertyRegistry {
 	 * @return boolean
 	 */
 	public function register( Registry $propertyRegistry ) {
-
+		$sespgEnabledPropertyList = $this->appFactory->getOption( 'sespgEnabledPropertyList', [] );
 		$propertyDefinitions = $this->appFactory->getPropertyDefinitions();
 		$labels = $propertyDefinitions->getLabels();
 
@@ -49,12 +49,20 @@ class PropertyRegistry {
 				continue;
 			}
 
+			if ( !in_array( $key, $sespgEnabledPropertyList ) ) {
+				continue;
+			}
+
 			$this->addPropertyDefinition( $propertyRegistry, $propertyDefinitions, $definition, $labels );
 		}
 
 		foreach ( $propertyDefinitions->safeGet( '_EXIF', [] ) as $key => $definition ) {
 
 			if ( !isset( $definition['id'] ) ) {
+				continue;
+			}
+
+			if ( !in_array( $key, $sespgEnabledPropertyList ) ) {
 				continue;
 			}
 
