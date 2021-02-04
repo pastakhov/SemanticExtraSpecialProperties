@@ -30,6 +30,14 @@
 		"label": "Page image",
 		"desc": "sesp-property-page-image-desc"
 	},
+	"_SHAREDPAGEIMAGE": {
+		"id": "___SHAREDPAGEIMAGE",
+		"type": "_wpg",
+		"show": false,
+		"alias": "sesp-property-shared-page-image",
+		"label": "Shared page image",
+		"desc": "sesp-property-shared-page-image-desc"
+	},
 	"_EUSER": {
 		"id": "___EUSER",
 		"type": "_wpg",
