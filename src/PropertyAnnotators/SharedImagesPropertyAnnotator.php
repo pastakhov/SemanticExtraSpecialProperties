@@ -2,11 +2,9 @@
 namespace SESP\PropertyAnnotators;
 
 use Exception;
-use PageImages;
 use SMW\DIProperty;
-use SMW\DIWikiPage;
 use SMW\SemanticData;
-use SMWDataItem as DataItem;
+use SMWDIString as DIString;
 use SESP\PropertyAnnotator;
 use SESP\AppFactory;
 use Title;
@@ -21,12 +19,12 @@ use Wikimedia\Rdbms\DBConnRef;
  *
  * @author Pavel Astakhov
  */
-class SharedPageImagesPropertyAnnotator implements PropertyAnnotator {
+class SharedImagesPropertyAnnotator implements PropertyAnnotator {
 
 	/**
 	 * Predefined property ID
 	 */
-	const PROP_ID = '___SHAREDPAGEIMAGE';
+	const PROP_ID = '___SHAREDIMAGE';
 
 	/**
 	 * @var AppFactory
@@ -85,25 +83,17 @@ class SharedPageImagesPropertyAnnotator implements PropertyAnnotator {
 				__METHOD__,
 				[ 'ORDER BY' => 'pp_propname' ]
 			);
-			$file = false;
+
 			if ( $fileName ) {
-				$file = wfFindFile( $fileName );
-			}
-			if ( !$file ) {
-				return;
-			}
-
-			$fileTitle = $file->getTitle();
-			$dataItem = null;
-			if ( $fileTitle instanceof Title ) {
-				$dataItem = DIWikiPage::newFromTitle( $fileTitle );
-			}
-
-			if ( $dataItem instanceof DataItem ) {
-				$semanticData->addPropertyObjectValue( $property, $dataItem );
+				$semanticData->addPropertyObjectValue(
+					$property,
+					new DIString( $fileName )
+				);
+			} else {
+				$semanticData->removeProperty( $property );
 			}
 		} catch ( Exception $ex ) {
-
+			$semanticData->removeProperty( $property );
 		}
 	}
 
