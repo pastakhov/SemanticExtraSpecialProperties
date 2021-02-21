@@ -10,6 +10,7 @@ use SMWDataItem as DataItem;
 use SESP\PropertyAnnotator;
 use SESP\AppFactory;
 use Title;
+use Wikimedia\Rdbms\DBConnRef;
 
 /**
  * @private
@@ -64,15 +65,21 @@ class SharedPageImagesPropertyAnnotator implements PropertyAnnotator {
 
 		$page = $this->appFactory->newWikiPage( $semanticData->getSubject()->getTitle() );
 		$title = $page->getTitle();
+		if ( !$title ) {
+			return;
+		}
 
 		try {
 			$foreignDb = wfGetDB( DB_MASTER, [], $wgSharedDB );
 
+			$foreignPageId = $this->getForeignPageId( $foreignDb, $title );
+
 			// Copied from PageImages::getPageImage()
-			$fileName = $foreignDb->selectField( 'page_props',
+			$fileName = $foreignDb->selectField(
+				'page_props',
 				'pp_value',
 				[
-					'pp_page' => $title->getArticleID(),
+					'pp_page' => $foreignPageId,
 					'pp_propname' => [ PageImages::PROP_NAME, PageImages::PROP_NAME_FREE ]
 				],
 				__METHOD__,
@@ -98,5 +105,29 @@ class SharedPageImagesPropertyAnnotator implements PropertyAnnotator {
 		} catch ( Exception $ex ) {
 
 		}
+	}
+
+	private function getForeignPageId( DBConnRef $foreignDb, Title $title ) {
+		$pageId = $foreignDb->selectField(
+			'page',
+			'page_id',
+			[
+				'page_namespace' => $title->getNamespace(),
+				'page_title' => $title->getDBkey(),
+			],
+			__METHOD__
+		);
+		if ( !$pageId ) {
+			$pageId = $foreignDb->selectField(
+				'page',
+				'page_id',
+				[
+					'page_namespace' => 0,
+					'page_title' => $title->getDBkey(),
+				],
+				__METHOD__
+			);
+		}
+		return $pageId;
 	}
 }
