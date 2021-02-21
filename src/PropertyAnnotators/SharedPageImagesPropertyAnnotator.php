@@ -59,7 +59,7 @@ class SharedPageImagesPropertyAnnotator implements PropertyAnnotator {
 	public function addAnnotation( DIProperty $property, SemanticData $semanticData ) {
 		global $wgSharedDB;
 
-		if ( !$wgSharedDB || !class_exists( 'PageImages' ) ) {
+		if ( !$wgSharedDB ) {
 			return;
 		}
 
@@ -80,7 +80,7 @@ class SharedPageImagesPropertyAnnotator implements PropertyAnnotator {
 				'pp_value',
 				[
 					'pp_page' => $foreignPageId,
-					'pp_propname' => [ PageImages::PROP_NAME, PageImages::PROP_NAME_FREE ]
+					'pp_propname' => [ 'page_image', 'page_image_free' ]
 				],
 				__METHOD__,
 				[ 'ORDER BY' => 'pp_propname' ]
