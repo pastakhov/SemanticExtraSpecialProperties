@@ -30,13 +30,13 @@
 		"label": "Page image",
 		"desc": "sesp-property-page-image-desc"
 	},
-	"_SHAREDIMAGE": {
-		"id": "___SHAREDIMAGE",
+	"_COMMONSIMAGE": {
+		"id": "___COMMONSIMAGE",
 		"type": "_txt",
 		"show": false,
-		"alias": "sesp-property-shared-image",
-		"label": "Shared image filename",
-		"desc": "sesp-property-shared-image-desc"
+		"alias": "sesp-property-commons-image",
+		"label": "Commons image filename",
+		"desc": "sesp-property-commons-image-desc"
 	},
 	"_EUSER": {
 		"id": "___EUSER",

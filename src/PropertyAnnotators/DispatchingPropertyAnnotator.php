@@ -159,8 +159,8 @@ class DispatchingPropertyAnnotator implements PropertyAnnotator {
 				return new PageImagesPropertyAnnotator( $appFactory );
 			},
 
-			SharedImagesPropertyAnnotator::PROP_ID => function( $appFactory ) {
-				return new SharedImagesPropertyAnnotator( $appFactory );
+			CommonsImagesPropertyAnnotator::PROP_ID => function( $appFactory ) {
+				return new CommonsImagesPropertyAnnotator( $appFactory );
 			},
 
 			RevisionIDPropertyAnnotator::PROP_ID => function( $appFactory ) {
