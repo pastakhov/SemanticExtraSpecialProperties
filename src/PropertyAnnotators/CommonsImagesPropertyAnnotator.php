@@ -6,7 +6,6 @@ use Hooks;
 use MediaWiki\MediaWikiServices;
 use MWException;
 use ObjectCache;
-use Onoi\HttpRequest\CachedCurlRequest;
 use SMW\DIProperty;
 use SMW\SemanticData;
 use SMWDIString as DIString;
@@ -28,6 +27,10 @@ class CommonsImagesPropertyAnnotator implements PropertyAnnotator {
 	 * Predefined property ID
 	 */
 	const PROP_ID = '___COMMONSIMAGE';
+
+	const CACHE_VERSION = 3;
+
+	const CACHE_TTL = 86400;
 
 	/**
 	 * @var AppFactory
@@ -83,7 +86,7 @@ class CommonsImagesPropertyAnnotator implements PropertyAnnotator {
 		$cacheKey = $cache->makeKey( __CLASS__, $url );
 		$cacheValue = $cache->get( $cacheKey );
 		if ( $cacheValue ) {
-			if ( ( $cacheValue['version'] ?? null ) === 2 ) {
+			if ( ( $cacheValue['version'] ?? null ) === self::CACHE_VERSION ) {
 				$pageImage = $cacheValue['pageImage'] ?? null;
 				if ( $pageImage ) {
 					$semanticData->addPropertyObjectValue(
@@ -104,7 +107,7 @@ class CommonsImagesPropertyAnnotator implements PropertyAnnotator {
 				if ( $pages ) {
 					$p = array_pop( $pages );
 					$pageImage = $p['pageimage'] ?? null;
-					$cache->set( $cacheKey, [ 'version' => 2, 'pageImage' => $pageImage ] );
+					$cache->set( $cacheKey, [ 'version' => self::CACHE_VERSION, 'pageImage' => $pageImage ], self::CACHE_TTL );
 					if ( $pageImage ) {
 						$semanticData->addPropertyObjectValue(
 							$property,
