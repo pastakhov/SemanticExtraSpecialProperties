@@ -72,6 +72,8 @@ class CommonsImagesPropertyAnnotator implements PropertyAnnotator {
 			return;
 		}
 
+		$semanticData->removeProperty( $property );
+
 		$mwServices = MediaWikiServices::getInstance();
 		$lang = $mwServices->getContentLanguage()->getCode();
 		$url = "https://$lang.wikipedia.org/w/api.php?" . wfArrayToCgi( [
@@ -117,9 +119,6 @@ class CommonsImagesPropertyAnnotator implements PropertyAnnotator {
 					}
 				}
 			}
-			$semanticData->removeProperty( $property );
-		} catch ( MWException $ex ) {
-			$semanticData->removeProperty( $property );
-		}
+		} catch ( MWException $ex ) {}
 	}
 }
