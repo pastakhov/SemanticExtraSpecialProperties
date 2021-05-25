@@ -68,7 +68,6 @@ class CommonsImagesPropertyAnnotator implements PropertyAnnotator {
 		}
 
 		if ( $title->isRedirect() ) {
-			$semanticData->removeProperty( $property );
 			return;
 		}
 
