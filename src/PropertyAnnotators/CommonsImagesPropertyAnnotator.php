@@ -67,12 +67,16 @@ class CommonsImagesPropertyAnnotator implements PropertyAnnotator {
 			return;
 		}
 
-		$dbKey = $title->getDBkey();
-		if ( !Hooks::run( 'CommonsImagesPropertyAnnotator', [ $title, &$dbKey ] ) ) {
+		if ( $title->isRedirect() ) {
+			$semanticData->removeProperty( $property );
 			return;
 		}
 
-		$semanticData->removeProperty( $property );
+		$dbKey = $title->getDBkey();
+		if ( !Hooks::run( 'CommonsImagesPropertyAnnotator', [ $title, &$dbKey ] ) ) {
+			$semanticData->removeProperty( $property );
+			return;
+		}
 
 		$mwServices = MediaWikiServices::getInstance();
 		$lang = $mwServices->getContentLanguage()->getCode();
@@ -119,6 +123,9 @@ class CommonsImagesPropertyAnnotator implements PropertyAnnotator {
 					}
 				}
 			}
-		} catch ( MWException $ex ) {}
+			$semanticData->removeProperty( $property );
+		} catch ( MWException $ex ) {
+			$semanticData->removeProperty( $property );
+		}
 	}
 }
